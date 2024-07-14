@@ -76,8 +76,8 @@ EndpointSchema.statics.findEndpointsByFilters = function (data, callback) {
 
   const filters = {};
 
-  if (data.keyword && typeof data.keyword == 'string')
-    filters.name = { $regex: search, $options: 'i' };
+  if (data.search && typeof data.search == 'string')
+    filters.name = { $regex: data.search, $options: 'i' };
 
   Endpoint
     .find(filters)

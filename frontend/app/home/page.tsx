@@ -11,34 +11,35 @@ import { RootState } from '../store/store';
 import { useRouter } from 'next/navigation'
 
 const Home = () => {
-  const router = useRouter();
-
   const [data, setData] = useState<DataType[]>([]);
 
   const { search } = useSelector((state: RootState) => state.search);
 
   const get = async () => {
-    console.log("here");
-    try {
-      const response = await axios.get(`http://localhost:10101/get-endpoints`, {
-        params: {
-          search: search
-        },
-        responseType: 'json'
-      });
-
-      console.log(response.data.endpoints)
-
-      setData(response.data.endpoints);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
+    console.log(search);
+    fetch(`http://localhost:10101/get-endpoints${search ? '?search=' + search : ''}`, {
+      method: 'GET'
+    })
+      .then(res => res.json())
+      .then(data => {
+        setData(data.endpoints);
+      })
+      .catch(err => console.error('Error fetching data:', err));
   }
 
   useEffect(() => {
-    console.log("alksdfjaklsjdfkaljdflksjfl");
-    get();
-  }, [router]);
+    async function fetchData() {
+      get();
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      get();
+    }
+    fetchData();
+  }, [search])
   
   return (
    <div className='relative min-h-screen mb-10'>
@@ -52,7 +53,6 @@ const Home = () => {
       Access a wide range of data types securely and easily,
       <div> leveraging our robust decentralized platform.</div>
       </div>
- 
     
       <Image
             src={Background}
@@ -77,7 +77,7 @@ const Home = () => {
             width={15}
             height={15}
             className="h-full"
-          />{data.value}</h1>
+          />1238</h1>
             <p className=" text-[#ceffd1] text-sm">0.0002 ETH</p>
 
 
