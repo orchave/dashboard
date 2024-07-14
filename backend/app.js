@@ -47,7 +47,7 @@ if (cluster.isMaster) {
     if (!req.body || typeof req.body != 'object')
       req.body = {};
 
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', '*');
 
     next();
   });
