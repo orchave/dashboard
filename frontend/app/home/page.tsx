@@ -17,7 +17,7 @@ const Home = () => {
 
   const get = async () => {
     console.log(search);
-    fetch(`http://localhost:10101/get-endpoints${search ? '?search=' + search : ''}`, {
+    fetch(`https://api.orchave.org/get-endpoints${search ? '?search=' + search : ''}`, {
       method: 'GET'
     })
       .then(res => res.json())
