@@ -1,0 +1,30 @@
+{
+  "name": "backend.dashboard",
+  "version": "1.0.0",
+  "description": "Dashboard backend",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orchave/dashboard.git"
+  },
+  "author": "node101",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/orchave/dashboard/issues"
+  },
+  "homepage": "https://github.com/orchave/dashboard#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cluster": "^0.7.7",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "http": "^0.0.1-security",
+    "mongoose": "^6.10.0",
+    "os": "^0.1.2",
+    "path": "^0.12.7",
+    "validator": "^13.12.0"
+  }
+}
