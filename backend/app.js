@@ -41,6 +41,7 @@ if (cluster.isMaster) {
     limit: MAX_SERVER_UPLOAD_LIMIT,
     parameter: MAX_SERVER_PARAMETER_LIMIT
   }));
+  app.use(cors());
 
   app.use((req, res, next) => {
     if (!req.query || typeof req.query != 'object')
@@ -48,14 +49,17 @@ if (cluster.isMaster) {
     if (!req.body || typeof req.body != 'object')
       req.body = {};
 
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+
     next();
   });
 
-  app.use(cors({
-    origin: '*',
-    credentials: true,
-    optionsSuccessStatus:  200
-  }));
+  app.options('*', (req, res) => {
+    // allowed XHR methods  
+    res.header('Access-Control-Allow-Methods', 'GET, PATCH, PUT, POST, DELETE, OPTIONS');
+    res.send();
+});
 
   app.use('/', indexRouteController);
 
