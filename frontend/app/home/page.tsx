@@ -28,6 +28,7 @@ const Home = () => {
   }
 
   useEffect(() => {
+
     async function fetchData() {
       get();
     }
@@ -40,6 +41,7 @@ const Home = () => {
     }
     fetchData();
   }, [search])
+
   
   return (
    <div className='relative min-h-screen mb-10'>
