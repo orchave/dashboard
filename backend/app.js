@@ -1,5 +1,6 @@
 const bodyParser = require('body-parser');
 const cluster = require('cluster');
+const cors = require('cors');
 const dotenv = require('dotenv');
 const express = require('express');
 const http = require('http');
@@ -47,10 +48,14 @@ if (cluster.isMaster) {
     if (!req.body || typeof req.body != 'object')
       req.body = {};
 
-    res.setHeader('Access-Control-Allow-Origin', '*');
-
     next();
   });
+
+  app.use(cors({
+    origin: '*',
+    credentials: true,
+    optionsSuccessStatus:  200
+  }));
 
   app.use('/', indexRouteController);
 
