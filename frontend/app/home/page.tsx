@@ -1,6 +1,6 @@
 "use client";
 import Image from 'next/image';
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import axios from 'axios';
 
 import  Icon  from "@/assets/value.svg"
@@ -8,89 +8,38 @@ import Background from "@/assets/background.svg"
 import { DataType } from '../../types/data';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
-
+import { useRouter } from 'next/navigation'
 
 const Home = () => {
+  const router = useRouter();
 
   const [data, setData] = useState<DataType[]>([]);
 
-  const {search} = useSelector((state: RootState) => state.search);
+  const { search } = useSelector((state: RootState) => state.search);
 
-  
-  const get = async (search:string) => {
+  const get = async () => {
+    console.log("here");
     try {
-      const response = await axios.get(`http://localhost:3000/data`, {
+      const response = await axios.get(`http://localhost:10101/get-endpoints`, {
         params: {
           search: search
-        }
+        },
+        responseType: 'json'
       });
-      setData(response.data);
+
+      console.log(response.data.endpoints)
+
+      setData(response.data.endpoints);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   }
-  
- 
- 
-  // const dummyData = [
-  //   {
-  //     address: "0x1f9090aa...8e676c326",
-  //     time: "23 minutes ago",
-  //     title: "Weather Data",
-  //     value: 999,
-  //     eth: "0.0002 ETH"
-  //   },
-  //   {
-  //     address: "0x1f9090aa...8e676c326",
-  //     time: "23 minutes ago",
-  //     title: "Weather Data",
-  //     value: 999,
-  //     eth: "0.0002 ETH"
-  //   },
-  //   {
-  //     address: "0x1f9090aa...8e676c326",
-  //     time: "23 minutes ago",
-  //     title: "Weather Data",
-  //     value: 999,
-  //     eth: "0.0002 ETH"
-  //   },
-  //   {
-  //     address: "0x1f9090aa...8e676c326",
-  //     time: "23 minutes ago",
-  //     title: "Weather Data",
-  //     value: 999,
-  //     eth: "0.0002 ETH"
-  //   },
-  //   {
-  //     address: "0x1f9090aa...8e676c326",
-  //     time: "23 minutes ago",
-  //     title: "Weather Data",
-  //     value: 999,
-  //     eth: "0.0002 ETH"
-  //   },
-  //   {
-  //     address: "0x1f9090aa...8e676c326",
-  //     time: "23 minutes ago",
-  //     title: "Weather Data",
-  //     value: 999,
-  //     eth: "0.0002 ETH"
-  //   },
-  //   {
-  //     address: "0x1f9090aa...8e676c326",
-  //     time: "23 minutes ago",
-  //     title: "Weather Data",
-  //     value: 999,
-  //     eth: "0.0002 ETH"
-  //   },
-  //   {
-  //     address: "0x1f9090aa...8e676c326",
-  //     time: "23 minutes ago",
-  //     title: "Weather Data",
-  //     value: 999,
-  //     eth: "0.0002 ETH"
-  //   }
-  // ];
 
+  useEffect(() => {
+    console.log("alksdfjaklsjdfkaljdflksjfl");
+    get();
+  }, [router]);
+  
   return (
    <div className='relative min-h-screen mb-10'>
       <div className='w-full h-[200px] text-[#ceffd1] z-30 text-center text-[64px] title'>
@@ -116,10 +65,10 @@ const Home = () => {
       {data.map((data, index) => (
           <button  key={index} className="px-10 gap-5 flex justify-between items-center p-4 bg-[#272727] w-[982px] h-[52px] rounded-[30px] z-30">
   <div className='flex gap-x-3 justify-center items-center'>
-            <h1 className=" font-normal text-white text-sm">{data.title}</h1>
-            <h1 className=" font-normal text-white text-[10px]">{data.time}</h1>
+            <h1 className=" font-normal text-white text-sm">{data.name}</h1>
+            <h1 className=" font-normal text-white text-[10px]">{data.type}</h1>
             </div>
-            <p className=" text-white text-sm">{data.address}</p>
+            <p className=" text-white text-sm">{data.url}</p>
 
   
             <h1 className=" font-bold bg-[#424242] text-[#c7c5c5] flex justify-center items-center gap-3 rounded-[45px] px-3 py-2 text-sm">    <Image
@@ -129,7 +78,7 @@ const Home = () => {
             height={15}
             className="h-full"
           />{data.value}</h1>
-            <p className=" text-[#ceffd1] text-sm">{data.eth}</p>
+            <p className=" text-[#ceffd1] text-sm">0.0002 ETH</p>
 
 
 

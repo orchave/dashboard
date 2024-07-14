@@ -1,15 +1,11 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import {useRouter,usePathname} from "next/navigation"
 import Image from 'next/image';
 
 import Logo from "@/assets/logo.svg" 
 import SearchBar from './SearchBar';
 
 const Navbar = () => {
-    const router =  useRouter()
-    const pathname = usePathname();
-
   return (
     <nav className="fixed top-0 w-full bg-[#121212] flex justify-between items-center p-4 shadow-lg z-50 text-white">
         <div className='w-full h-full flex justify-around items-center gap-x-10'>
